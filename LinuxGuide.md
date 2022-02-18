@@ -1,43 +1,41 @@
-# Zeppelin Setup Guide By @Lando Calrissian#0001
+# Linux Setup
 ![Zeppelin Banner](assets/zeppelinbanner.jpg)
 
-**Consider putting a ⭐️ on this repo if you find it helpful!**
+## Precursor
 
-**Zeppelin self hosting. Its not too easy, but its also not impossible**
+Before attempting to selfhost Zeppelin you should have basic experience with
+- Webservers such as nginx
+- Linux and the command line
+- NodeJS applications
+- Git
 
-> THIS WILL BE GETTING REGULAR UPDATES, SO PLEASE BE PATIENT IF SOMETHING IS NOT RIGHT!
+Not only will this make the setup process easier, it will allow you to diagnose any issues you may run into in the future
+## Check for updates
+`sudo apt update -y && sudo apt upgrade -y` 
 
-**Linux users, this is the guide for you!**
-**if you are unsure on certain things, please send a messsage to the zeppelin support server (discord.gg/zeppelin)**
-
-https://github.com/Dragory/ZeppelinBot/pull/232/files
-
-## Check for Updates
-`sudo apt update && sudo apt -y upgrade` 
-
-## Install Necessary Software
+## Install the necessary software
 
 1. `sudo apt -y install mariadb-server git nano curl build-essential nginx`
-    - Mariadb for the database (not MySQL)
-    - Git for copying the bot code and for allowing you to get future updates
-    - Nano for editing text files
-    - Curl for downloading certain installation scripts
-    - build-essential is needed for building the bot
-    - Nginx to serve web files for the dashboard, which is where the config is edited/built
+    - Mariadb for the database, other SQL like databases such as mySQL will not work
+    - Git allows us to clone the bot and stay up to date with the main instance
+    - Nano is a text editor that will allow us to edit files
+    - Curl is required for certain installation scripts, this sould already be installed
+    - build-essential is required for building the bot
+    - Nginx for the webserver, this will allow us to serve web files for the dashboard, which is where the config is edited/built
 
 It will probably say that some of the things are already installed, which is fine. Just make sure there are no errors.
 
 2. Install NVM (Node Version Manager). Instead of installing Node directly (and run the high risk of installing the wrong version), NVM is used because the code contains a setting that tells NVM which node version to use. This reduces any chance of complications down the road.
-  1. `curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash`
+  1. `curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash`
   2. Log out and log back in. If you're connected by SSH, run `exit` and reconnect.
 
-## Copy the Current Bot Code
+## Clone zeppelin
 `git clone https://github.com/Dragory/ZeppelinBot.git`
 
-This creates a folder called ZeppelinBot and puts the current code in there.
+This creates a folder called ZeppelinBot and clones the bot there.
 
 ## Install NodeJS
-Now we need to get NVM to read the Node version and install the correct Node version to use.
+Now we need to get NVM to read the Node version and install the correct Node version.
 
 1. `cd ZeppelinBot`
 2. `nvm install`
@@ -220,3 +218,8 @@ server {
     - Make sure there are no errors. If there are, run `systemctl journal nginx.service` (or whatever command it tells you to run, it'll list a command to run if it fails to restart) to view the error log and ask in the Zeppelin Discord server.
 
 That's it! The bot should be fully functional. The dashboard should be accessible at http://[localhost|domain|ip]:1234. If there are any issues, or to see sample configs, please visit the Zeppelin Discord Server.
+
+# Credits
+- Lando Calrissian#0001
+- k200#5291
+- max,#0001
