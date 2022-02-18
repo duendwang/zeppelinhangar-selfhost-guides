@@ -1,3 +1,8 @@
+
+# !! Disclaimer !!
+This guide is part of the old documentation, since I took ownership of the project I won't be maintaining the windows guide. Windows is not the type of operating system for bots such as Zeppelin and Linux will pose far less problems. Please use Linux instead, even if it's being run on a VM inside of Windows.
+
+
 # Zeppelin Setup Guide By @Lando Calrissian#0001
 ![Zeppelin Banner](assets/zeppelinbanner.jpg)
 
