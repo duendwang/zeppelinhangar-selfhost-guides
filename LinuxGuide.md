@@ -57,7 +57,7 @@ Building the bot will include having to access various Github repositories and d
 5. `nano .env`
     - Fill in 32-char key, letters and numbers only.
     - You can use a password generator set to letters and numbers only to help you (https://passwordsgenerator.net/?length=32&symbols=0&numbers=1&lowercase=1&uppercase=1&similar=0&ambiguous=0&client=1&autoselect=0)
-    - Press **Ctrl-X**, then **Y**, then **Enter** to save the file and close Nano.
+    - Save the file
 6. `cd backend`
 7. `cp bot.env.example bot.env`
 8. `cp api.env.example api.env`
@@ -66,66 +66,57 @@ We'll fill in these env files later. First we need to set up the database
 
 ### Initial Database Setup
 
-1. `sudo mariadb`
-    - If you have a root passsword set, it won't let you login. Run `sudo mariadb -p` instead and type in the password when asked. It won't display, so make sure you type it correctly then just press enter.
-2. Check what version of Mariadb is running, this should be in the text that's logged as soon as you login. **If it is 10.2 or below, you need to upgrade Mariadb before you can continue**
-    - `exit;`
-    - `sudo apt remove mariadb-server`
-    - `curl -LsS -O https://downloads.mariadb.com/MariaDB/mariadb_repo_setup`
-    - `sudo bash mariadb_repo_setup --mariadb-server-version=10.6`
-    - `sudo apt update`
-    - `sudo apt install mariadb-server`
-    - `sudo mariadb` or `sudo mariadb -p`
-4. `CREATE USER 'zeppelin'@'localhost' IDENTIFIED BY 'ENTER_DATABASE_PASSWORD';`
-    - Replace **ENTER_DATABASE_PASSWORD** with a password of your choosing, but keep the single quotes.
-5. `grant all on *.* to 'root'@'localhost' identified by 'ENTER_YOUR_ROOT_PASSWORD_HERE' with grant option;`
-    - Replace **ENTER_YOUR_ROOT_PASSWORD_HERE** with your root MySQL password, or leave it blank if you don't have one. Either way, make sure to keep the single quotes.
-6. `create database zeppelin;`
-7. `grant all on zeppelin.* to 'zeppelin'@'localhost' identified by 'ENTER_DATABASE_PASSWORD' with grant option;`
-    - Replace **ENTER_DATABASE_PASSWORD** with the same password you chose in step 2, but keep the single quotes.
-8. `flush privileges;`
-9. `exit;`
+1. First run `sudo mysql_secure_installation`, this will be used to secure the database, follow the prompts.
+2. Bring yourself into the mariadb console by running `sudo mariadb`
+3. Create a new user to use with Zeppelin `GRANT ALL ON *.* TO 'zep'@'localhost' IDENTIFIED BY 'PASSWORD_HERE' WITH GRANT OPTION;`
+4. Refresh permissions with `FLUSH PRIVILEGES;`
+5. Create a database that will store the zeppelin data `CREATE DATABASE zep;`
+6. Use nano to edit /etc/mysql/mariadb.cnf and add 
+```
+[mariadb]
+default_time_zone = '+0:00'
+```
+to the bottom of the file
+
+7. Save the file, then restart mariadb with `sudo systemctl restart mariadb`
 
 ### Setting up the Bot
-1. In your browser, go to https://discord.com/developers/applications/ and log in as needed.
+1. In your browser, go to https://discord.com/developers/applications/ and log in.
 2. Click on the button **Create new application** and name it.
 3. On the left, click on **Oauth2**
     - Under **Redirects**, put `http://localhost:8800/auth/oauth-callback` into the text box.
         - If there is no text box, click **Add Another**
         - If the bot will be used in a production environment, or you will otherwise be accessing the bot/dashboard from outside the server computer, put `http://[domain|ip]:8800/auth/oauth-callback)` into the box intead. (e.g. http://8.8.8.8:8800/auth/oauth-callback or http://google.com:8800/auth/oauth-callback)
-        - Make sure there is no slash at the end (e.g. /oauth-callback not /oauth-callback/)
-    - Copy **Client ID** and **Client Secret**
+        - Make sure there is no trailing slash (e.g. /oauth-callback not /oauth-callback/)
     - On the bottom, click the green **Save** button.
 4. On the left, click on **Bot** and add a bot.
-    - Copy the token, **do not share this token with anyone. It allows people to login to your bot!**
     - Under **Privileged Gateway Intents**, enable all 3 toggles.
 5. Invite the bot to the server but do not try to run any commands.
     - https://discord.com/api/oauth2/authorize?client_id=CLIENT-ID-HERE&permissions=8&scope=bot
-    - Replace **CLIENT-ID-HERE** with the client ID you copied in step 3.
+    - Replace **CLIENT-ID-HERE** with the your bots client ID.
 
 ### Fill in the Bot and API settings
 1. `nano bot.env`
-    - TOKEN= *(fill in the token from step 4 under Setting up the Bot)*
+    - TOKEN= *(Fill in the token from your discord bot application)*
     - DB_HOST=localhost
-    - DB_USER=zeppelin
-    - DB_PASSWORD= *(fill in the password you set in step 2 under Initial Database Setup)*
-    - DB_DATABASE=zeppelin
-2. Press **Ctrl-X**, then **Y**, then **Enter** to save the file and close Nano.
+    - DB_USER=zep
+    - DB_PASSWORD= *(Fill in with the password you used in the database setup)*
+    - DB_DATABASE=zep
+2. Save the file
 3. `nano api.env`
     - PORT=8800
-    - CLIENT_ID= *(fill in the token from step 3 under Setting up the Bot)*
-    - CLIENT_SECRET= *(fill in the token from step 3 under Setting up the Bot)*
-    - OAUTH_CALLBACK_URL= *(put in the same URL you did in the Discord Application settings, step 3 under Setting up the Bot)*
+    - CLIENT_ID= *(Fill in with the client id from your discord application)*
+    - CLIENT_SECRET= *(Fill in with the secret from your discord application)*
+    - OAUTH_CALLBACK_URL= *(Put the same URL you did in the Discord Application settings)*
     - DASHBOARD_URL=http://localhost:1234
       - Use the same domain/IP as you did for OAUTH_CALLBACK_URL
-      - Make sure there is no slash at the end
+      - Make sure there is no trailing slash
     - DB_HOST=localhost
-    - DB_USER=zeppelin
-    - DB_PASSWORD= *(fill in the password you set in step 2 under Initial Database Setup)*
-    - DB_DATABASE=zeppelin
-    - STAFF= *(put your Discord User ID here; attach any additional bot adminstrators' Discord user IDs separated by commas)*
-4. Press **Ctrl-X**, then **Y**, then **Enter** to save the file and close Nano.
-
+    - DB_USER=zep
+    - DB_PASSWORD= *(Fill in with the password you used in the database setup)*
+    - DB_DATABASE=zep
+    - STAFF= *(Fill in your Discord User ID here)*
+4. Save the file 
 ### Build the Bot and API
 
 1. `npm run build`
@@ -147,12 +138,8 @@ Initial configurations and entries in the database need to be set up to use the 
     - Modify SERVER_ID, SERVER_NAME, OWNER_ID
 4. `INSERT INTO configs (id, `key`, config, is_active, edited_by) VALUES (1, "global", "{\"prefix\": \"!\", \"url\": \"http://localhost:8800\" ,\"owners\": [\"YOUR_ID\"]}", true, "YOUR_ID");`
     - Modify YOUR_ID X2; replace localhost with domain|ip as applicable
-5. `INSERT INTO configs (id, `key`, config, is_active, edited_by) VALUES (2, "guild-GUILD_ID", "{\"prefix\": \"!\", \"levels\": {\"YOUR_ID\": 100}, \"plugins\": { \"utility\": {}}}", true, "YOUR_ID");`
-    - Modify GUILD_ID, YOUR_ID X2
 6. `INSERT INTO api_permissions (guild_id, target_id, type, permissions) VALUES (GUILD_ID, YOUR_ID, "USER", "OWNER");`
     - Modify GUILD_ID, YOUR_ID
-7. `SET GLOBAL time_zone = '+0:00';`
-8. `exit;`
 
 ### Start Bot and API
 
@@ -212,5 +199,5 @@ That's it! The bot should be fully functional. The dashboard should be accessibl
 
 # Credits
 - Lando Calrissian#0001
-- k200#5291
 - max,#0001
+- k200#5291
