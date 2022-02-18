@@ -7,10 +7,10 @@
 ## Install the necessary software
 
 1. `sudo apt -y install mariadb-server git nano curl build-essential nginx`
-    - Mariadb for the database, other SQL like databases such as mySQL will not work
+    - mariadb for the database, other SQL like databases such as mySQL will not work
     - Git allows us to clone the bot and stay up to date with the main instance
     - Nano is a text editor that will allow us to edit files
-    - Curl is required for certain installation scripts, this sould already be installed
+    - Curl is required for certain installation scripts, this should already be installed
     - build-essential is required for building the bot
     - Nginx for the webserver, this will allow us to serve web files for the dashboard, which is where the config is edited/built
 
@@ -62,7 +62,7 @@ Building the bot will include having to access various Github repositories and d
 7. `cp bot.env.example bot.env`
 8. `cp api.env.example api.env`
 
-We'll fill in these env files later. First we need to set up the database
+We'll fill in these env files later. First, we need to set up the database
 
 ### Initial Database Setup
 
@@ -86,7 +86,7 @@ to the bottom of the file
 3. On the left, click on **Oauth2**
     - Under **Redirects**, put `http://localhost:8800/auth/oauth-callback` into the text box.
         - If there is no text box, click **Add Another**
-        - If the bot will be used in a production environment, or you will otherwise be accessing the bot/dashboard from outside the server computer, put `http://[domain|ip]:8800/auth/oauth-callback)` into the box intead. (e.g. http://8.8.8.8:8800/auth/oauth-callback or http://google.com:8800/auth/oauth-callback)
+        - If the bot will be used in a production environment, or you will otherwise be accessing the bot/dashboard from outside the server computer, put `http://[domain|ip]:8800/auth/oauth-callback)` into the box instead. (e.g. http://8.8.8.8:8800/auth/oauth-callback or http://google.com:8800/auth/oauth-callback)
         - Make sure there is no trailing slash (e.g. /oauth-callback not /oauth-callback/)
     - On the bottom, click the green **Save** button.
 4. On the left, click on **Bot** and add a bot.
@@ -121,7 +121,7 @@ to the bottom of the file
 
 1. `npm run build`
     - Make sure there are no errors. If there are errors, try search for some answers, if that doesn't work then ask for help in the Zeppelin support server
-2. Run migrations. This will set up the database structure and all the neccessary tables. If you skip this part the bot will throw errors:
+2. Run migrations. This will set up the database structure and all the necessary tables. If you skip this part the bot will throw errors:
     - For a development instance (for testing and development): `npm run migrate-dev`
     - For a production instance (for use on actual servers): `npm run migrate-prod`
 
