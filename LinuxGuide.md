@@ -16,7 +16,7 @@
 
 It will probably say that some of the things are already installed, which is fine. Just make sure there are no errors.
 
-2. Install NVM (Node Version Manager). Instead of installing Node directly (and run the high risk of installing the wrong version), NVM is used because the code contains a setting that tells NVM which node version to use. This reduces any chance of complications down the road.
+2. Install NVM (Node Version Manager). Instead of installing Node directly (and run the risk of installing the wrong version), NVM is used because the code contains a setting that tells NVM which node version to use. This reduces any chance of complications down the road.
   1. `curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash`
   2. Log out and log back in. If you're connected by SSH, run `exit` and reconnect.
 
@@ -120,7 +120,7 @@ to the bottom of the file
 ### Build the Bot and API
 
 1. `npm run build`
-    - Make sure there are no errors. If there are errors, copy the entire output (not just the ERR parts) and ask in the Zeppelin Discord server.
+    - Make sure there are no errors. If there are errors, try search for some answers, if that doesn't work then ask for help in the Zeppelin support server
 2. Run migrations. This will set up the database structure and all the neccessary tables. If you skip this part the bot will throw errors:
     - For a development instance (for testing and development): `npm run migrate-dev`
     - For a production instance (for use on actual servers): `npm run migrate-prod`
@@ -133,7 +133,7 @@ Initial configurations and entries in the database need to be set up to use the 
 
 1. `sudo mariadb`
     - or `sudo mariadb -p` as applicable
-2. `use zeppelin;`
+2. `use zep;`
 3. `INSERT INTO allowed_guilds (id, name, icon, owner_id) VALUES ("SERVER_ID", "SERVER_NAME", null, "OWNER_ID");`
     - Modify SERVER_ID, SERVER_NAME, OWNER_ID
 4. `INSERT INTO configs (id, `key`, config, is_active, edited_by) VALUES (1, "global", "{\"prefix\": \"!\", \"url\": \"http://localhost:8800\" ,\"owners\": [\"YOUR_ID\"]}", true, "YOUR_ID");`
@@ -145,7 +145,7 @@ Initial configurations and entries in the database need to be set up to use the 
 
 #### In Production
 
-For production use (most cases), use pm2 to manage your bot instances. Zeppelin already coems with "process files" for pm2, which are files that contain instructions telling pm2 how to start the bot and api.
+For production use (most cases), use pm2 to manage your bot instances. Zeppelin already comes with "process files" for pm2, which are files that contain instructions telling pm2 how to start the bot and api.
 
 1. `npm i -g pm2`
 2. `cd ..`
@@ -154,7 +154,7 @@ For production use (most cases), use pm2 to manage your bot instances. Zeppelin 
 
 #### In Development
 
-To start the bot in development, run `npm run watch`. This will start build and start both the bot and api, and will also check for file changes and update the bot automatically.
+To start the bot in development, run `npm run watch`. This will build and start both the bot and api, it will also check for file changes and update the bot automatically.
 
 ## Install and Build the Dashboard
 
@@ -173,7 +173,7 @@ To start the bot in development, run `npm run watch`. This will start build and 
 
 ## Set up Nginx for Production Bots
 
-1. `sudo nano /etc/nginx/sites-available/zeppelin`
+1. `sudo nano /etc/nginx/conf.d/zeppelin.conf`
 2. Copy the following:
 ```
 server {
@@ -182,7 +182,7 @@ server {
 
     server_name zeppelin; #or domain on a live server
 
-    root /home/ubuntu/ZeppelinBot/dashboard/dist; #replace ubuntu with actual account name
+    root /home/ubuntu/ZeppelinBot/dashboard/dist; #replace ubuntu with  account name
     index index.html;
 
     location / {
@@ -190,9 +190,8 @@ server {
     }
 }
 ````
-3. In Nano, **right click** to paste the text. Then press **Ctrl-X** then **Y** then **Enter** to save and close the file.
-4. `sudo ln -s /etc/nginx/sites-available/zeppelin /etc/nginx/sites-enabled/zeppelin`
-5. `sudo systemctl restart nginx`
+3. Save the file
+4. `sudo systemctl restart nginx`
     - Make sure there are no errors. If there are, run `systemctl journal nginx.service` (or whatever command it tells you to run, it'll list a command to run if it fails to restart) to view the error log and ask in the Zeppelin Discord server.
 
 That's it! The bot should be fully functional. The dashboard should be accessible at http://[localhost|domain|ip]:1234. If there are any issues, or to see sample configs, please visit the Zeppelin Discord Server.
