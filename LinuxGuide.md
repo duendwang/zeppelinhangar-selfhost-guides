@@ -63,7 +63,7 @@ Building the bot will include having to access various Github repositories and d
 
 1. `cd backend`
 2. `npm ci`
-    - Make sure there are no errors. If there are errors, try search for some answers, if that doesn't work then ask for help in the Zeppelin support server
+    - Make sure there are no errors. If there are errors, try search for some answers, if that doesn't work then ask for help in the self-hosting server
 3. `cd ..`
 4. `cp .env.example .env`
 5. `echo KEY=$(openssl rand -hex 16) > .env`
@@ -130,7 +130,7 @@ to the bottom of the file
 ### Build the Bot and API
 
 1. `npm run build`
-    - Make sure there are no errors. If there are errors, try search for some answers, if that doesn't work then ask for help in the Zeppelin support server
+    - Make sure there are no errors. If there are errors, try search for some answers, if that doesn't work then ask for help in the self-hosting server
 2. Run migrations. This will set up the database structure and all the necessary tables. `npm run migrate-prod`
 
 ### Set up Initial Database Entries
@@ -197,9 +197,9 @@ server {
 ````
 3. Save the file
 4. `sudo systemctl restart nginx`
-    - Make sure there are no errors. If there are, run `systemctl journal nginx.service` (or whatever command it tells you to run, it'll list a command to run if it fails to restart) to view the error log, try search for some answers, if that doesn't work then ask for help in the Zeppelin support server.
+    - Make sure there are no errors. If there are, run `systemctl journal nginx.service` (or whatever command it tells you to run, it'll list a command to run if it fails to restart) to view the error log, try search for some answers, if that doesn't work then ask for help in the self-hosting server.
 
-That's it! The bot should be fully functional. The dashboard should be accessible at http://[localhost|domain|ip]:1234. If there are any issues, or to see sample configs, please visit the Zeppelin support Server.
+That's it! The bot should be fully functional. The dashboard should be accessible at http://[localhost|domain|ip]:1234. If there are any issues, or to see sample configs, please visit the Zeppelin support Server or self-hosting server.
 
 # Credits
 - Lando Calrissian#0001
