@@ -66,7 +66,7 @@ Building the bot will include having to access various Github repositories and d
     - Make sure there are no errors. If there are errors, try search for some answers, if that doesn't work then ask for help in the Zeppelin support server
 3. `cd ..`
 4. `cp .env.example .env`
-5. `echo KEY=$(openssl rand -base64 32) > .env`
+5. `echo KEY=$(openssl rand -hex 16) > .env`
 6. `cd backend`
 7. `cp bot.env.example bot.env`
 8. `cp api.env.example api.env`
