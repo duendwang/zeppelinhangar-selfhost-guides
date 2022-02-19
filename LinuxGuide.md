@@ -45,7 +45,7 @@ Building the bot will include having to access various Github repositories and d
   4. Paste the text (from step 4) into the key box and name it. Then click the green save button.
 6. Back in the SSH shell, `ssh -T git@github.com`
 
-## Install and Build the Bot and API
+## Configuring the database, bot and API
 
 ### Initial Installation
 
@@ -160,7 +160,7 @@ To start the bot in development, run `npm run watch`. This will build and start 
       - As before, make sure there is no slash trailing slash.
 5. If you are setting up a production bot: `npm run build`
 6. If you are setting up a development bot: `npm run watch`
-    - This will build and set up a temporary webserver that hosts the dashboard, but only accessible locally.
+    - This will build and set up a temporary webserver that hosts the dashboard, but it will only be accessible locally.
 
 ## Set up Nginx for Production Bots (Can use another webserver if comfortable)
 
