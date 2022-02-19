@@ -1,6 +1,18 @@
 # Linux Setup
 ![Zeppelin Banner](assets/zeppelinbanner.jpg)
 
+# Useful resources
+Throughout the installation you might run into things you are not familair with, here are a list of some resources you can use to find out more about the things you're doing
+- [Google](https://google.com) (^:
+- [MariaDB Docs](https://mariadb.com/kb/en/documentation/)
+- [Nginx Docs](https://nginx.org/en/docs/)
+- [Git Docs](https://git-scm.com/doc)
+- [pm2 Docs](https://pm2.keymetrics.io/docs/usage/quick-start/)
+
+There is also the Zeppelin support server and Zeppelin self-hosting server
+- [Zeppelin support server](https://discord.gg/zeppelin)
+- [Zeppelin self-hosting server](https://discord.gg/uTcdUmF6Q7)
+
 ## Check for updates
 `sudo apt update -y && sudo apt upgrade -y` 
 
