@@ -121,18 +121,16 @@ to the bottom of the file
 
 ### Set up Initial Database Entries
 
-Initial configurations and entries in the database need to be set up to use the bot on the first server:
-
-(As you can see below, the `key` item is not enclosed in ``, this is a formatting issue, just note when you run these commands, that the key item is enclosed in them.)
+Initial entries are needed to add the bot to a server without it leaving, future changes to the database should be down through the bot owner commands
 
 1. `sudo mariadb`
     - or `sudo mariadb -p` as applicable
 2. `use zep;`
-3. `INSERT INTO allowed_guilds (id, name, icon, owner_id) VALUES ("SERVER_ID", "SERVER_NAME", null, "OWNER_ID");`
+3. ```INSERT INTO allowed_guilds (id, name, icon, owner_id) VALUES ("SERVER_ID", "SERVER_NAME", null, "OWNER_ID");```
     - Modify SERVER_ID, SERVER_NAME, OWNER_ID
-4. `INSERT INTO configs (id, `key`, config, is_active, edited_by) VALUES (1, "global", "{\"prefix\": \"!\", \"url\": \"http://YOUR_IP:8800\" ,\"owners\": [\"YOUR_ID\"]}", true, "YOUR_ID");`
+4. ```INSERT INTO configs (id, `key`, config, is_active, edited_by) VALUES (1, "global", "{\"prefix\": \"!\", \"url\": \"http://YOUR_IP:8800\" ,\"owners\": [\"YOUR_ID\"]}", true, "YOUR_ID");```
     - Modify YOUR_ID X2; replace YOUR_IP with domain|ip as applicable
-6. `INSERT INTO api_permissions (guild_id, target_id, type, permissions) VALUES (GUILD_ID, YOUR_ID, "USER", "OWNER");`
+6. ```INSERT INTO api_permissions (guild_id, target_id, type, permissions) VALUES (GUILD_ID, YOUR_ID, "USER", "OWNER");```
     - Modify GUILD_ID, YOUR_ID
 
 ### Start Bot and API
@@ -185,9 +183,9 @@ server {
 ````
 3. Save the file
 4. `sudo systemctl restart nginx`
-    - Make sure there are no errors. If there are, run `systemctl journal nginx.service` (or whatever command it tells you to run, it'll list a command to run if it fails to restart) to view the error log and ask in the Zeppelin Discord server.
+    - Make sure there are no errors. If there are, run `systemctl journal nginx.service` (or whatever command it tells you to run, it'll list a command to run if it fails to restart) to view the error log, try search for some answers, if that doesn't work then ask for help in the Zeppelin support server.
 
-That's it! The bot should be fully functional. The dashboard should be accessible at http://[localhost|domain|ip]:1234. If there are any issues, or to see sample configs, please visit the Zeppelin Discord Server.
+That's it! The bot should be fully functional. The dashboard should be accessible at http://[localhost|domain|ip]:1234. If there are any issues, or to see sample configs, please visit the Zeppelin support Server.
 
 # Credits
 - Lando Calrissian#0001
