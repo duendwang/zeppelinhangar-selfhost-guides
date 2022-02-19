@@ -12,7 +12,7 @@
     - Nano is a text editor that will allow us to edit files
     - Curl is required for certain installation scripts, this should already be installed
     - build-essential is required for building the bot
-    - Nginx for the webserver, this will allow us to serve web files for the dashboard, which is where the config is edited/built
+    - Nginx for the webserver, this will allow us to serve web files for the dashboard, which is where the config is edited/built, if you are familiar with another webserver then feel free to use that instead.
 
 It will probably say that some of the things are already installed, which is fine. Just make sure there are no errors.
 
@@ -21,17 +21,17 @@ It will probably say that some of the things are already installed, which is fin
   2. Log out and log back in. If you're connected by SSH, run `exit` and reconnect.
 
 ## Clone zeppelin
-`git clone https://github.com/Dragory/ZeppelinBot.git`
+`git clone https://github.com/ZeppelinBot/Zeppelin`
 
-This creates a folder called ZeppelinBot and clones the bot there.
+This creates a folder called Zeppelin and clones the bot there.
 
 ## Install NodeJS
 Now we need to get NVM to read the Node version and install the correct Node version.
 
-1. `cd ZeppelinBot`
+1. `cd Zeppelin`
 2. `nvm install`
 
-## Set up Github SSH Access
+## Set up Github SSH Access (Optional, should not be needed but try if errors occur with GitHub)
 Building the bot will include having to access various Github repositories and download code from different places; code that the bot depends on. In order to do that, we need to set up a Github account - if you don't have one yet, just visit [Github](https://github.com/signup) and go from there - and set up SSH access via a key pair so your server can access these Github repositories as needed during the installation process.
 
 1. `ssh-keygen -t ed25519 -C "your_email@example.com"` (substituting your email address in the quotes; keep the quotes)
@@ -51,18 +51,15 @@ Building the bot will include having to access various Github repositories and d
 
 1. `cd backend`
 2. `npm ci`
-    - Make sure there are no errors. If there are errors, copy the entire output (not just the ERR parts) and ask in the Zeppelin Discord server.
+    - Make sure there are no errors. If there are errors, try search for some answers, if that doesn't work then ask for help in the Zeppelin support server
 3. `cd ..`
 4. `cp .env.example .env`
-5. `nano .env`
-    - Fill in 32-char key, letters and numbers only.
-    - You can use a password generator set to letters and numbers only to help you (https://passwordsgenerator.net/?length=32&symbols=0&numbers=1&lowercase=1&uppercase=1&similar=0&ambiguous=0&client=1&autoselect=0)
-    - Save the file
+5. `echo KEY=$(openssl rand -base64 32) > .env`
 6. `cd backend`
 7. `cp bot.env.example bot.env`
 8. `cp api.env.example api.env`
 
-We'll fill in these env files later. First, we need to set up the database
+We'll fill in the rest of the env files later. First, we need to set up the database.
 
 ### Initial Database Setup
 
@@ -84,9 +81,8 @@ to the bottom of the file
 1. In your browser, go to https://discord.com/developers/applications/ and log in.
 2. Click on the button **Create new application** and name it.
 3. On the left, click on **Oauth2**
-    - Under **Redirects**, put `http://localhost:8800/auth/oauth-callback` into the text box.
+    - Under **Redirects**, put `http://YOUR_IP:8800/auth/oauth-callback` into the text box.
         - If there is no text box, click **Add Another**
-        - If the bot will be used in a production environment, or you will otherwise be accessing the bot/dashboard from outside the server computer, put `http://[domain|ip]:8800/auth/oauth-callback)` into the box instead. (e.g. http://8.8.8.8:8800/auth/oauth-callback or http://google.com:8800/auth/oauth-callback)
         - Make sure there is no trailing slash (e.g. /oauth-callback not /oauth-callback/)
     - On the bottom, click the green **Save** button.
 4. On the left, click on **Bot** and add a bot.
@@ -108,7 +104,7 @@ to the bottom of the file
     - CLIENT_ID= *(Fill in with the client id from your discord application)*
     - CLIENT_SECRET= *(Fill in with the secret from your discord application)*
     - OAUTH_CALLBACK_URL= *(Put the same URL you did in the Discord Application settings)*
-    - DASHBOARD_URL=http://localhost:1234
+    - DASHBOARD_URL=http://YOUR_IP:1234
       - Use the same domain/IP as you did for OAUTH_CALLBACK_URL
       - Make sure there is no trailing slash
     - DB_HOST=localhost
@@ -121,9 +117,7 @@ to the bottom of the file
 
 1. `npm run build`
     - Make sure there are no errors. If there are errors, try search for some answers, if that doesn't work then ask for help in the Zeppelin support server
-2. Run migrations. This will set up the database structure and all the necessary tables. If you skip this part the bot will throw errors:
-    - For a development instance (for testing and development): `npm run migrate-dev`
-    - For a production instance (for use on actual servers): `npm run migrate-prod`
+2. Run migrations. This will set up the database structure and all the necessary tables. `npm run migrate-prod`
 
 ### Set up Initial Database Entries
 
@@ -136,8 +130,8 @@ Initial configurations and entries in the database need to be set up to use the 
 2. `use zep;`
 3. `INSERT INTO allowed_guilds (id, name, icon, owner_id) VALUES ("SERVER_ID", "SERVER_NAME", null, "OWNER_ID");`
     - Modify SERVER_ID, SERVER_NAME, OWNER_ID
-4. `INSERT INTO configs (id, `key`, config, is_active, edited_by) VALUES (1, "global", "{\"prefix\": \"!\", \"url\": \"http://localhost:8800\" ,\"owners\": [\"YOUR_ID\"]}", true, "YOUR_ID");`
-    - Modify YOUR_ID X2; replace localhost with domain|ip as applicable
+4. `INSERT INTO configs (id, `key`, config, is_active, edited_by) VALUES (1, "global", "{\"prefix\": \"!\", \"url\": \"http://YOUR_IP:8800\" ,\"owners\": [\"YOUR_ID\"]}", true, "YOUR_ID");`
+    - Modify YOUR_ID X2; replace YOUR_IP with domain|ip as applicable
 6. `INSERT INTO api_permissions (guild_id, target_id, type, permissions) VALUES (GUILD_ID, YOUR_ID, "USER", "OWNER");`
     - Modify GUILD_ID, YOUR_ID
 
@@ -160,18 +154,17 @@ To start the bot in development, run `npm run watch`. This will build and start 
 
 1. cd to the dashboard folder:
     - If you are in the backend folder: `cd ../dashboard`
-    - If you are in the ZeppelinBot folder: `cd dashboard`
+    - If you are in the Zeppelin folder: `cd dashboard`
 2. `npm ci`
 3. `cp .env.example .env`
 4. `nano .env`
-    - API_URL=http://localhost:8800
-      - As before, replace localhost with a domain or IP if you did so in the api.env file.
-      - As before, make sure there is no slash at the end.
+    - API_URL=http://YOUR_IP:8800
+      - As before, make sure there is no slash trailing slash.
 5. If you are setting up a production bot: `npm run build`
 6. If you are setting up a development bot: `npm run watch`
     - This will build and set up a temporary webserver that hosts the dashboard, but only accessible locally.
 
-## Set up Nginx for Production Bots
+## Set up Nginx for Production Bots (Can use another webserver if comfortable)
 
 1. `sudo nano /etc/nginx/conf.d/zeppelin.conf`
 2. Copy the following:
