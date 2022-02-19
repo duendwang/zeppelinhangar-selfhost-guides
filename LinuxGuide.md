@@ -2,7 +2,7 @@
 ![Zeppelin Banner](assets/zeppelinbanner.jpg)
 
 # Useful resources
-Throughout the installation you might run into things you are not familair with, here are a list of some resources you can use to find out more about the things you're doing
+Throughout the installation, you might run into things you are not familiar with, here is a list of some resources you can use to find out more about the things you're doing
 - [Google](https://google.com) (^:
 - [MariaDB Docs](https://mariadb.com/kb/en/documentation/)
 - [Nginx Docs](https://nginx.org/en/docs/)
@@ -24,11 +24,11 @@ There is also the Zeppelin support server and Zeppelin self-hosting server
     - Nano is a text editor that will allow us to edit files
     - Curl is required for certain installation scripts, this should already be installed
     - build-essential is required for building the bot
-    - Nginx for the webserver, this will allow us to serve web files for the dashboard, which is where the config is edited/built, if you are familiar with another webserver then feel free to use that instead.
+    - Nginx for the webserver will allow us to serve web files for the dashboard, which is where the config is edited/built, if you are familiar with another web server then feel free to use that instead.
 
 It will probably say that some of the things are already installed, which is fine. Just make sure there are no errors.
 
-2. Install NVM (Node Version Manager). Instead of installing Node directly (and run the risk of installing the wrong version), NVM is used because the code contains a setting that tells NVM which node version to use. This reduces any chance of complications down the road.
+2. Install NVM (Node Version Manager). Instead of installing Node directly (and running the risk of installing the wrong version), NVM is used because the code contains a setting that tells NVM which node version to use. This reduces any chance of complications down the road.
   1. `curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash`
   2. Log out and log back in. If you're connected by SSH, run `exit` and reconnect.
 
@@ -52,18 +52,18 @@ Building the bot will include having to access various Github repositories and d
 4. `cat ~/.ssh/id_ed25519.pub` Copy all the text from the output
 5. Install the key pair to Github:
   1. Log in to github (see the above step if you need to create an account)
-  2. Click on your profile picture on top right and click on Settings
+  2. Click on your profile picture on the top right and click on Settings
   3. On the left, click on SSH and GPG Keys, then click New SSH Key
   4. Paste the text (from step 4) into the key box and name it. Then click the green save button.
 6. Back in the SSH shell, `ssh -T git@github.com`
 
-## Configuring the database, bot and API
+## Configuring the database, bot, and API
 
 ### Initial Installation
 
 1. `cd backend`
 2. `npm ci`
-    - Make sure there are no errors. If there are errors, try search for some answers, if that doesn't work then ask for help in the self-hosting server
+    - Make sure there are no errors. If there are errors, try a google search for your error, if that doesn't work then ask for help in the self-hosting server
 3. `cd ..`
 4. `cp .env.example .env`
 5. `echo KEY=$(openssl rand -hex 16) > .env`
@@ -103,7 +103,7 @@ to the bottom of the file
     ![Gateway Intents](assets/gateway_intents.png)
 5. Invite the bot to the server but do not try to run any commands.
     - https://discord.com/api/oauth2/authorize?client_id=CLIENT-ID-HERE&permissions=8&scope=bot
-    - Replace **CLIENT-ID-HERE** with the your bots client ID.
+    - Replace **CLIENT-ID-HERE** with your bots client ID.
 
 ### Fill in the Bot and API settings
 1. `nano bot.env`
@@ -130,7 +130,7 @@ to the bottom of the file
 ### Build the Bot and API
 
 1. `npm run build`
-    - Make sure there are no errors. If there are errors, try search for some answers, if that doesn't work then ask for help in the self-hosting server
+    - Make sure there are no errors. If there are errors, try a google search for your error, if that doesn't work then ask for help in the self-hosting server
 2. Run migrations. This will set up the database structure and all the necessary tables. `npm run migrate-prod`
 
 ### Set up Initial Database Entries
@@ -151,7 +151,7 @@ Initial entries are needed to add the bot to a server without it leaving, future
 
 #### In Production
 
-For production use (most cases), use pm2 to manage your bot instances. Zeppelin already comes with "process files" for pm2, which are files that contain instructions telling pm2 how to start the bot and api.
+For production use (most cases), use pm2 to manage your bot instances. Zeppelin already comes with "process files" for pm2, which are files that contain instructions telling pm2 how to start the bot and API.
 
 1. `npm i -g pm2`
 2. `cd ..`
@@ -160,7 +160,7 @@ For production use (most cases), use pm2 to manage your bot instances. Zeppelin 
 
 #### In Development
 
-To start the bot in development, run `npm run watch`. This will build and start both the bot and api, it will also check for file changes and update the bot automatically.
+To start the bot in development, run `npm run watch`. This will build and start both the bot and API, it will also check for file changes and update the bot automatically.
 
 ## Install and Build the Dashboard
 
@@ -174,7 +174,7 @@ To start the bot in development, run `npm run watch`. This will build and start 
       - As before, make sure there is no slash trailing slash.
 5. If you are setting up a production bot: `npm run build`
 6. If you are setting up a development bot: `npm run watch`
-    - This will build and set up a temporary webserver that hosts the dashboard, but it will only be accessible locally.
+    - This will build and set up a temporary web server that hosts the dashboard, but it will only be accessible locally.
 
 ## Set up Nginx for Production Bots (Can use another webserver if comfortable)
 
@@ -197,7 +197,7 @@ server {
 ````
 3. Save the file
 4. `sudo systemctl restart nginx`
-    - Make sure there are no errors. If there are, run `systemctl journal nginx.service` (or whatever command it tells you to run, it'll list a command to run if it fails to restart) to view the error log, try search for some answers, if that doesn't work then ask for help in the self-hosting server.
+    - Make sure there are no errors. If there are, run `systemctl journal nginx.service` (or whatever command it tells you to run, it'll list a command to run if it fails to restart) to view the error log, try a google search for your error, if that doesn't work then ask for help in the self-hosting server.
 
 That's it! The bot should be fully functional. The dashboard should be accessible at http://[localhost|domain|ip]:1234. If there are any issues, or to see sample configs, please visit the Zeppelin support Server or self-hosting server.
 
