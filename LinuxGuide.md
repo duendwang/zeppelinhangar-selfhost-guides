@@ -13,6 +13,8 @@ There is also the Zeppelin support server and Zeppelin self-hosting server
 - [Zeppelin support server](https://discord.gg/zeppelin)
 - [Zeppelin self-hosting server](https://discord.gg/uTcdUmF6Q7)
 
+**IMPORTANT NOTICE FOR VPS USERS:** It is reccomended that when setting up the bot, you allocate at LEAST 2 GB of ram to your system. This is because building the bot uses significantly more system resources than actually running it. Once the bot has been initially set up, you can reduce the amount of ram back to 1GB if you like
+
 ## Check for updates
 `sudo apt update -y && sudo apt upgrade -y` 
 
