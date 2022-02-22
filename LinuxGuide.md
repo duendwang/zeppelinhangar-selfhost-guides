@@ -15,6 +15,14 @@ There is also the Zeppelin support server and Zeppelin self-hosting server
 
 **IMPORTANT NOTICE FOR VPS USERS:** It is recommended that when setting up the bot, you allocate at LEAST 2 GB of ram to your system. This is because building the bot uses significantly more system resources than actually running it. Once the bot has been initially set up, you can reduce the amount of ram back to 1GB if you like
 
+## Adding a new user to Linux (Skip if already not using root user)
+You should run Zeppelin with a user that is not root, to add a new user run 
+1. `sudo adduser <username>`
+This will add a new user with your chosen username. w
+2. When asked for a password enter one you will remember as you'll need it later. 
+3. When prompted to enter values for Full Name, Room Number etc, just press enter to choose blank values.
+4. Finally run `su <username` to switch to that user, you'll need to enter the password you picked earlier
+
 ## Check for updates
 `sudo apt update -y && sudo apt upgrade -y` 
 
@@ -79,10 +87,11 @@ We'll fill in the rest of the env files later. First, we need to set up the data
 
 1. First run `sudo mysql_secure_installation`, this will be used to secure the database, follow the prompts.
 2. Bring yourself into the mariadb console by running `sudo mariadb`
-3. Create a new user to use with Zeppelin `GRANT ALL ON *.* TO 'zep'@'localhost' IDENTIFIED BY 'PASSWORD_HERE' WITH GRANT OPTION;`
+3. Create a new user to use with Zeppelin `GRANT ALL ON zep.* to 'zep'@'localhost' identified by 'PASSWORD_HERE' WITH GRANT OPTION; `
 4. Refresh permissions with `FLUSH PRIVILEGES;`
 5. Create a database that will store the zeppelin data `CREATE DATABASE zep;`
-6. Use nano to edit /etc/mysql/mariadb.cnf and add 
+6. Exit mariaDB with `exit`
+7. Use`sudo nano /etc/mysql/mariadb.conf` to edit the mariadb config file and add 
 ```
 [mariadb]
 default_time_zone = '+0:00'
