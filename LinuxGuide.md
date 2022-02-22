@@ -202,8 +202,3 @@ server {
     - Make sure there are no errors. If there are, run `systemctl journal nginx.service` (or whatever command it tells you to run, it'll list a command to run if it fails to restart) to view the error log, try a google search for your error, if that doesn't work then ask for help in the self-hosting server.
 
 That's it! The bot should be fully functional. The dashboard should be accessible at http://[localhost|domain|ip]:1234. If there are any issues, or to see sample configs, please visit the Zeppelin support Server or self-hosting server.
-
-# Credits
-- Lando Calrissian#0001
-- max,#0001
-- k200#5291
