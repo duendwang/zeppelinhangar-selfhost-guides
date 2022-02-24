@@ -21,8 +21,9 @@ You should run Zeppelin with a user that is not root, to add a new user run
 This will add a new user with your chosen username. w
 2. When asked for a password enter one you will remember as you'll need it later. 
 3. When prompted to enter values for Full Name, Room Number etc, just press enter to choose blank values.
-4. Run `su <username` to switch to that user, you'll need to enter the password you picked earlier
-5. Change into the users home directory with `cd ~`
+4. Run `sudo usermod -aG sudo <username>` to add the new user to the sudoers
+5. Run `su <username` to switch to that user, you'll need to enter the password you picked earlier
+6. Change into the users home directory with `cd ~`
 
 ## Check for updates
 `sudo apt update -y && sudo apt upgrade -y` 
