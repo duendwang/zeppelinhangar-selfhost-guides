@@ -200,7 +200,7 @@ server {
 
     server_name zeppelin; #or domain on a live server
 
-    root /home/ubuntu/Zeppelin/dashboard/dist; #replace ubuntu with  account name
+    root /home/zeppelin/Zeppelin/dashboard/dist; #replace ubuntu with  account name
     index index.html;
 
     location / {
