@@ -1,6 +1,9 @@
 # Linux Setup
 ![Zeppelin Banner](assets/zeppelinbanner.jpg)
 
+# Intro
+Incase you haven't done so already, take a look at the [README](README.md)
+
 # Useful resources
 Throughout the installation, you might run into things you are not familiar with, here is a list of some resources you can use to find out more about the things you're doing
 - [Google](https://google.com) (^:
@@ -26,7 +29,7 @@ This will add a new user with your chosen username. w
 6. Change into the users home directory with `cd ~`
 
 ## Check for updates
-`sudo apt update -y && sudo apt upgrade -y` 
+`sudo apt update && sudo apt upgrade -y` 
 
 ## Install the necessary software
 
@@ -208,7 +211,7 @@ server {
     }
 }
 ````
-3. Save the file
+3. Save the file. **The file must end in .conf for it to work correctly**
 4. `sudo systemctl restart nginx`
     - Make sure there are no errors. If there are, run `systemctl journal nginx.service` (or whatever command it tells you to run, it'll list a command to run if it fails to restart) to view the error log, try a google search for your error, if that doesn't work then ask for help in the self-hosting server.
 
