@@ -96,7 +96,7 @@ We'll fill in the rest of the env files later. First, we need to set up the data
 4. Refresh permissions with `FLUSH PRIVILEGES;`
 5. Create a database that will store the zeppelin data `CREATE DATABASE zep;`
 6. Exit mariaDB with `exit`
-7. Use`sudo nano /etc/mysql/mariadb.conf` to edit the mariadb config file and add 
+7. Use`sudo nano /etc/mysql/mariadb.cnf` to edit the mariadb config file and add 
 ```
 [mariadb]
 default_time_zone = '+0:00'
