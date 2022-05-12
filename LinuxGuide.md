@@ -23,9 +23,9 @@ You should run Zeppelin with a user that is not root, to add a new user run
 1. `sudo adduser <username>`
 This will add a new user with your chosen username.
 2. When asked for a password, enter one you will remember, as you'll need it later. 
-3. When prompted to enter values for Full Name, Room Number etc. just press enter to select blank values.
+3. When prompted to enter values for Full Name, Room Number etc. Just press enter to select blank values.
 4. Run `sudo usermod -aG sudo <username>` to add the new user to the sudoers
-5. Run `su <username` to switch to that user, you'll need to enter the password you picked earlier
+5. Run `su <username>` to switch to that user, you'll need to enter the password you picked earlier
 6. Change into the user home directory with `cd ~`
 
 ## Check for updates
@@ -39,7 +39,7 @@ This will add a new user with your chosen username.
     - Nano is a text editor that allows us to edit files
     - Curl is necessary for certain installation scripts, this should already be installed
     - build-essential is required for building the bot
-    - Nginx for the webserver, allows us to serve web files for the dashboard, which is where the config is edited/built, if you are familiar with another web server then feel free to use that instead.
+    - Nginx for the webserver as it allows us to serve web files for the dashboard, which is where the config is edited/built, if you are familiar with another web server then feel free to use that instead.
 It will probably say that some things are already installed, which is fine. Just make sure there are no errors.
 
 2. Install NVM (Node Version Manager). Instead of installing Node directly (and running the risk of installing the wrong version), NVM is used because the code contains a setting that tells NVM which node version to use. This reduces any chance of complications down the road.
@@ -56,6 +56,20 @@ Now we need to get NVM to read the Node version and install the correct Node ver
 
 1. `cd Zeppelin`
 2. `nvm install`
+
+## Set up Github SSH Access (Optional, should not be needed but try if errors occur with GitHub)
+Building the bot will include having to access various Github repositories and download code from different places; code that the bot depends on. In order to do that, we need to set up a Github account - if you don't have one yet, just visit [Github](https://github.com/signup) and go from there - and set up SSH access via a key pair so your server can access these Github repositories as needed during the installation process.
+
+1. `ssh-keygen -t ed25519 -C "your_email@example.com"` (substituting your email address in the quotes; keep the quotes)
+2. `eval "$(ssh-agent)"`
+3. `ssh-add ~/.ssh/id_ed25519`
+4. `cat ~/.ssh/id_ed25519.pub` Copy all the text from the output
+5. Install the key pair to Github:
+  1. Log in to github (see the above step if you need to create an account)
+  2. Click on your profile picture on the top right and click on Settings
+  3. On the left, click on SSH and GPG Keys, then click New SSH Key
+  4. Paste the text (from step 4) into the key box and name it. Then click the green save button.
+6. Back in the SSH shell, `ssh -T git@github.com`
 
 ## Configuring the database, bot, and API
 
@@ -104,7 +118,7 @@ to the bottom of the file
     ![Gateway Intents](assets/gateway_intents.png)
 5. Invite the bot to the server, but do not try to run any commands.
     - https://discord.com/api/oauth2/authorize?client_id=CLIENT-ID-HERE&permissions=8&scope=bot
-    - Replace **CLIENT-ID-HERE** with your bot client ID.
+    - Replace **CLIENT-ID-HERE** with your bots client ID.
 
 ### Fill in the Bot and API settings
 1. `nano bot.env`
@@ -188,7 +202,7 @@ server {
 
     server_name zeppelin; # or domain on a live server
 
-    root /home/user1/Zeppelin/dashboard/dist; # replace user1 with your account name
+    root /home/zeppelin/Zeppelin/dashboard/dist; # replace zeppelin with your account name
     index index.html;
 
     location / {
