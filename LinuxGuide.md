@@ -2,7 +2,7 @@
 ![Zeppelin Banner](assets/zeppelinbanner.jpg)
 
 # Intro
-Incase you haven't done so already, take a look at the [README](README.md)
+In case you haven't done so already, take a look at the [README](README.md)
 
 # Useful resources
 Throughout the installation, you might run into things you are not familiar with, here is a list of some resources you can use to find out more about the things you're doing
@@ -16,32 +16,31 @@ There is also the Zeppelin support server and Zeppelin self-hosting server
 - [Zeppelin support server](https://discord.gg/zeppelin)
 - [Zeppelin self-hosting server](https://discord.gg/uTcdUmF6Q7)
 
-**IMPORTANT NOTICE FOR VPS USERS:** It is recommended that when setting up the bot, you allocate at LEAST 2 GB of ram to your system. This is because building the bot uses significantly more system resources than actually running it. Once the bot has been initially set up, you can reduce the amount of ram back to 1GB if you like
+**IMPORTANT NOTICE FOR VPS USERS:** It is recommended that when setting up the bot, you allocate at LEAST 2 GB of ram to your system. This is because building the bot uses significantly more system resources than actually running it. Once the bot has been initially set up, you can reduce the amount of ram back to 1 GB if you like.
 
 ## Adding a new user to Linux (Skip if already not using root user)
-You should run Zeppelin with a user that is not root, to add a new user run 
+You should run Zeppelin with a user that is not root, to add a new user run
 1. `sudo adduser <username>`
-This will add a new user with your chosen username. w
-2. When asked for a password enter one you will remember as you'll need it later. 
-3. When prompted to enter values for Full Name, Room Number etc, just press enter to choose blank values.
+This will add a new user with your chosen username.
+2. When asked for a password, enter one you will remember, as you'll need it later. 
+3. When prompted to enter values for Full Name, Room Number etc. Just press enter to select blank values.
 4. Run `sudo usermod -aG sudo <username>` to add the new user to the sudoers
-5. Run `su <username` to switch to that user, you'll need to enter the password you picked earlier
-6. Change into the users home directory with `cd ~`
+5. Run `su <username>` to switch to that user, you'll need to enter the password you picked earlier
+6. Change into the user home directory with `cd ~`
 
 ## Check for updates
 `sudo apt update && sudo apt upgrade -y` 
 
 ## Install the necessary software
 
-1. `sudo apt -y install mariadb-server git nano curl build-essential nginx`
-    - mariadb for the database, other SQL like databases such as mySQL will not work
+1. `sudo apt install mariadb-server git nano curl build-essential nginx -y`
+    - MariaDB for the database, other SQL like databases such as MySQL will not work
     - Git allows us to clone the bot and stay up to date with the main instance
-    - Nano is a text editor that will allow us to edit files
-    - Curl is required for certain installation scripts, this should already be installed
+    - Nano is a text editor that allows us to edit files
+    - Curl is necessary for certain installation scripts, this should already be installed
     - build-essential is required for building the bot
-    - Nginx for the webserver will allow us to serve web files for the dashboard, which is where the config is edited/built, if you are familiar with another web server then feel free to use that instead.
-
-It will probably say that some of the things are already installed, which is fine. Just make sure there are no errors.
+    - Nginx for the webserver as it allows us to serve web files for the dashboard, which is where the config is edited/built, if you are familiar with another web server then feel free to use that instead.
+It will probably say that some things are already installed, which is fine. Just make sure there are no errors.
 
 2. Install NVM (Node Version Manager). Instead of installing Node directly (and running the risk of installing the wrong version), NVM is used because the code contains a setting that tells NVM which node version to use. This reduces any chance of complications down the road.
   1. `curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash`
@@ -78,7 +77,7 @@ Building the bot will include having to access various Github repositories and d
 
 1. `cd backend`
 2. `npm ci`
-    - Make sure there are no errors. If there are errors, try a google search for your error, if that doesn't work then ask for help in the self-hosting server
+    - Make sure there are no errors. If there are errors, try a Google search for your error, if that doesn't work then ask for help in the self-hosting server.
 3. `cd ..`
 4. `cp .env.example .env`
 5. `echo KEY=$(openssl rand -hex 16) > .env`
@@ -91,19 +90,19 @@ We'll fill in the rest of the env files later. First, we need to set up the data
 ### Initial Database Setup
 
 1. First run `sudo mysql_secure_installation`, this will be used to secure the database, follow the prompts.
-2. Bring yourself into the mariadb console by running `sudo mariadb`
+2. Bring yourself into the MariaDB console by running `sudo mariadb`
 3. Create a new user to use with Zeppelin `GRANT ALL ON zep.* to 'zep'@'localhost' identified by 'PASSWORD_HERE' WITH GRANT OPTION; `
 4. Refresh permissions with `FLUSH PRIVILEGES;`
 5. Create a database that will store the zeppelin data `CREATE DATABASE zep;`
-6. Exit mariaDB with `exit`
-7. Use`sudo nano /etc/mysql/mariadb.cnf` to edit the mariadb config file and add 
+6. Exit MariaDB with `exit`
+7. Use `sudo nano /etc/mysql/mariadb.cnf` to edit the MariaDB config file and add
 ```
 [mariadb]
 default_time_zone = '+0:00'
 ```
 to the bottom of the file
 
-7. Save the file, then restart mariadb with `sudo systemctl restart mariadb`
+7. Save the file, then restart MariaDB with `sudo systemctl restart mariadb`
 
 ### Setting up the Bot
 1. In your browser, go to https://discord.com/developers/applications/ and log in.
@@ -117,41 +116,42 @@ to the bottom of the file
 4. On the left, click on **Bot** and add a bot.
     - Under **Privileged Gateway Intents**, enable all 3 toggles.
     ![Gateway Intents](assets/gateway_intents.png)
-5. Invite the bot to the server but do not try to run any commands.
+5. Invite the bot to the server, but do not try to run any commands.
     - https://discord.com/api/oauth2/authorize?client_id=CLIENT-ID-HERE&permissions=8&scope=bot
     - Replace **CLIENT-ID-HERE** with your bots client ID.
 
 ### Fill in the Bot and API settings
 1. `nano bot.env`
-    - TOKEN= *(Fill in the token from your discord bot application)*
+    - TOKEN=*(Fill in the token from your discord bot application)*
     - DB_HOST=localhost
     - DB_USER=zep
-    - DB_PASSWORD= *(Fill in with the password you used in the database setup)*
+    - DB_PASSWORD=*(Fill in with the password you used in the database setup)*
     - DB_DATABASE=zep
 2. Save the file
 3. `nano api.env`
     - PORT=8800
-    - CLIENT_ID= *(Fill in with the client id from your discord application)*
-    - CLIENT_SECRET= *(Fill in with the secret from your discord application)*
+    - CLIENT_ID=*(Fill in with the client id from your discord application)*
+    - CLIENT_SECRET=*(Fill in with the secret from your discord application)*
     - OAUTH_CALLBACK_URL= *(Put the same URL you did in the Discord Application settings)*
     - DASHBOARD_URL=http://YOUR_IP:1234
       - Use the same domain/IP as you did for OAUTH_CALLBACK_URL
       - Make sure there is no trailing slash
     - DB_HOST=localhost
     - DB_USER=zep
-    - DB_PASSWORD= *(Fill in with the password you used in the database setup)*
+    - DB_PASSWORD=*(Fill in with the password you used in the database setup)*
     - DB_DATABASE=zep
-    - STAFF= *(Fill in your Discord User ID here)*
+    - STAFF=*(Fill in your Discord User ID here)*
 4. Save the file 
+
 ### Build the Bot and API
 
 1. `npm run build`
-    - Make sure there are no errors. If there are errors, try a google search for your error, if that doesn't work then ask for help in the self-hosting server
+    - Make sure there are no errors. If there are errors, try a Google search for your error, if that doesn't work then ask for help in the self-hosting server
 2. Run migrations. This will set up the database structure and all the necessary tables. `npm run migrate-prod`
 
 ### Set up Initial Database Entries
 
-Initial entries are needed to add the bot to a server without it leaving, future changes to the database should be down through the bot owner commands
+Initial entries are required to add the bot to a server without it leaving, future changes to the database should be down through the bot owner commands
 
 1. `sudo mariadb`
     - or `sudo mariadb -p` as applicable
@@ -159,7 +159,7 @@ Initial entries are needed to add the bot to a server without it leaving, future
 3. ```INSERT INTO allowed_guilds (id, name, icon, owner_id) VALUES ("SERVER_ID", "SERVER_NAME", null, "OWNER_ID");```
     - Modify SERVER_ID, SERVER_NAME, OWNER_ID
 4. ```INSERT INTO configs (id, `key`, config, is_active, edited_by) VALUES (1, "global", "{\"prefix\": \"!\", \"url\": \"http://YOUR_IP:8800\" ,\"owners\": [\"YOUR_ID\"]}", true, "YOUR_ID");```
-    - Modify YOUR_ID X2; replace YOUR_IP with domain|ip as applicable
+    - Modify YOUR_ID X2; replace YOUR_IP with domain or IP as applicable
 6. ```INSERT INTO api_permissions (guild_id, target_id, type, permissions) VALUES (GUILD_ID, YOUR_ID, "USER", "OWNER");```
     - Modify GUILD_ID, YOUR_ID
 
@@ -167,8 +167,7 @@ Initial entries are needed to add the bot to a server without it leaving, future
 
 #### In Production
 
-For production use (most cases), use pm2 to manage your bot instances. Zeppelin already comes with "process files" for pm2, which are files that contain instructions telling pm2 how to start the bot and API.
-
+For production use (most cases), use pm2 to manage your bot instances. Zeppelin already comes with “process files” for pm2, which are files that contain instructions telling pm2 how to start the bot and API.
 1. `npm i -g pm2`
 2. `cd ..`
 3. `pm2 start process-bot.json`
@@ -199,11 +198,11 @@ To start the bot in development, run `npm run watch`. This will build and start 
 ```
 server {
     listen 1234; # replace with dashboard port
-    listen [::]:1234; # replace with dashboard port
+    listen [::]:1234; # replace with dashboard port.
 
-    server_name zeppelin; #or domain on a live server
+    server_name zeppelin; # or domain on a live server
 
-    root /home/zeppelin/Zeppelin/dashboard/dist; #replace ubuntu with  account name
+    root /home/zeppelin/Zeppelin/dashboard/dist; # replace zeppelin with your account name
     index index.html;
 
     location / {
@@ -211,8 +210,8 @@ server {
     }
 }
 ````
-3. Save the file. **The file must end in .conf for it to work correctly**
+3. Save the file. **The file must end in `.conf` for it to work correctly**
 4. `sudo systemctl restart nginx`
-    - Make sure there are no errors. If there are, run `systemctl journal nginx.service` (or whatever command it tells you to run, it'll list a command to run if it fails to restart) to view the error log, try a google search for your error, if that doesn't work then ask for help in the self-hosting server.
+    - Make sure there are no errors. If there are, run `systemctl journal nginx.service` (or whatever command it tells you to run, it'll list a command to run if it fails to restart) to view the error log, try a Google search for your error, if that doesn't work then ask for help in the self-hosting server.
 
 That's it! The bot should be fully functional. The dashboard should be accessible at http://[localhost|domain|ip]:1234. If there are any issues, or to see sample configs, please visit the Zeppelin support Server or self-hosting server.
