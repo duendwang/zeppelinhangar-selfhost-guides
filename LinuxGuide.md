@@ -20,12 +20,12 @@ There is also the Zeppelin support server and Zeppelin self-hosting server
 
 ## Adding a new user to Linux (Skip if already not using root user)
 You should run Zeppelin with a user that is not root, to add a new user run
-1. `sudo adduser <username>`
+1. `sudo adduser zeppelin`
 This will add a new user with your chosen username.
 2. When asked for a password, enter one you will remember, as you'll need it later. 
 3. When prompted to enter values for Full Name, Room Number etc. Just press enter to select blank values.
-4. Run `sudo usermod -aG sudo <username>` to add the new user to the sudoers
-5. Run `su <username>` to switch to that user, you'll need to enter the password you picked earlier
+4. Run `sudo usermod -aG sudo zeppelin` to add the new user to the sudoers
+5. Run `su zeppelin` to switch to that user, you'll need to enter the password you picked earlier
 6. Change into the user home directory with `cd ~`
 
 ## Check for updates
