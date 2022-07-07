@@ -36,7 +36,7 @@ This will add a new user with your chosen username.
 
 1. `sudo apt install mariadb-server git nano curl build-essential nginx -y`
     - MariaDB for the database, other SQL like databases such as MySQL will not work. 
-      - Version 10.3 is required, if your apt repository doesn't include this version, please ask in the self-hosting discord for help.
+      - Version 10.3 is recommended, if your apt repository doesn't include this version and you run into issues with migrations, please ask in the self-hosting discord for help.
     - Git allows us to clone the bot and stay up to date with the main instance
     - Nano is a text editor that allows us to edit files
     - Curl is necessary for certain installation scripts, this should already be installed
