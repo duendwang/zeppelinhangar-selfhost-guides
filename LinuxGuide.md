@@ -2,7 +2,8 @@
 ![Zeppelin Banner](assets/zeppelinbanner.jpg)
 
 # Intro
-In case you haven't done so already, take a look at the [README](README.md)
+In case you haven't done so already, take a look at the [README.](README.md)  
+This guide assumes the host is a new VPS without anything else running. If you run this on an existing host or on a local machinee, you may run into issues not covered by this guide.
 
 # Useful resources
 Throughout the installation, you might run into things you are not familiar with, here is a list of some resources you can use to find out more about the things you're doing
@@ -34,7 +35,8 @@ This will add a new user with your chosen username.
 ## Install the necessary software
 
 1. `sudo apt install mariadb-server git nano curl build-essential nginx -y`
-    - MariaDB for the database, other SQL like databases such as MySQL will not work
+    - MariaDB for the database, other SQL like databases such as MySQL will not work. 
+      - Version 10.3 is required, if your apt repository doesn't include this version, please ask in the self-hosting discord for help.
     - Git allows us to clone the bot and stay up to date with the main instance
     - Nano is a text editor that allows us to edit files
     - Curl is necessary for certain installation scripts, this should already be installed
