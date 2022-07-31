@@ -6,12 +6,15 @@
 #           They will be usable in webhooks (logs) regardless of your bot being on the server.
 #
 #
+      ping_user: true
+      allow_user_mentions: false
+      include_embed_timestamp: true
       format:
         timestamp: ""
+
         CASE_CREATE: >-
           ✏ {userMention(mod)} manually created new **{caseType}** case
           (#{caseNum})
-
 
         CASE_DELETE:
           embed:
@@ -21,7 +24,6 @@
             thumbnail:
               url: "{mod.avatarURL}"
 
-
         CASE_UPDATE:
           embed:
             description: |-
@@ -30,14 +32,12 @@
             thumbnail:
               url: "{mod.avatarURL}"
 
-
         BOT_ALERT:
           embed:
             description: |-
               <:warn:907937810735067176> **Bot alert**
               {tmplEval(body)}
             color: 0xffb347 #pastel orange
-
 
         DM_FAILED:
           embed:
@@ -46,7 +46,6 @@
               Source: {source}
             thumbnail:
               url: "{user.avatarURL}"
-
 
         # MODERATION
         MEMBER_NOTE:
@@ -57,7 +56,6 @@
             thumbnail:
               url: "{user.avatarURL}"
 
-
         MEMBER_WARN:
           embed:
             description: |-
@@ -65,7 +63,6 @@
             color: 0xfdfd96 #pastel yellow
             thumbnail:
               url: "{member.avatarURL}"
-
 
         MEMBER_MUTE:
           embed:
@@ -75,7 +72,6 @@
             thumbnail:
               url: "{user.avatarURL}"
 
-
         MEMBER_TIMED_MUTE:
           embed:
             description: |-
@@ -84,9 +80,7 @@
             thumbnail:
               url: "{user.avatarURL}"
 
-
         MASSMUTE: "<:mute:907774320426778645> {userMention(mod)} massmuted {count} users"
-
 
         MEMBER_UNMUTE:
           embed:
@@ -96,7 +90,6 @@
             thumbnail:
               url: "{user.avatarURL}"
 
-
         MEMBER_TIMED_UNMUTE:
           embed:
             description: |-
@@ -104,7 +97,6 @@
             color: 0x77dd77 #pastel green
             thumbnail:
               url: "{user.avatarURL}"
-
 
         MEMBER_MUTE_EXPIRED:
           embed:
@@ -114,7 +106,6 @@
             thumbnail:
               url: "{member.avatarURL}"
 
-
         MEMBER_KICK:
           embed:
             description: |-
@@ -122,7 +113,6 @@
             color: 0xffb347 #pastel orange
             thumbnail:
               url: "{user.avatarURL}"
-
 
         MEMBER_BAN:
           embed:
@@ -132,7 +122,6 @@
             thumbnail:
               url: "{user.avatarURL}"
 
-
         MEMBER_TIMED_BAN:
           embed:
             description: |-
@@ -140,7 +129,6 @@
             color: 0xff6666 #pastel red
             thumbnail:
               url: "{user.avatarURL}"
-
 
         MEMBER_FORCEBAN:
           embed:
@@ -150,7 +138,6 @@
             thumbnail:
               url: "{user.avatarURL}"
 
-
         MASSBAN:
           embed:
             description: |-
@@ -158,7 +145,6 @@
             color: 0xff6666 #pastel red
             thumbnail:
               url: "{mod.avatarURL}"
-
 
         MEMBER_SOFTBAN:
           embed:
@@ -168,7 +154,6 @@
             thumbnail:
               url: "{member.avatarURL}"
 
-
         MEMBER_UNBAN:
           embed:
             description: |-
@@ -176,7 +161,6 @@
             color: 0x77dd77 #pastel green
             thumbnail:
               url: "{user.avatarURL}"
-
 
         MEMBER_TIMED_UNBAN:
           embed:
@@ -187,7 +171,6 @@
             thumbnail:
               url: "{user.avatarURL}"
 
-
         MASSUNBAN:
           embed:
             description: |-
@@ -195,7 +178,6 @@
             color: 0x77dd77 #pastel green
             thumbnail:
               url: "{mod.avatarURL}"
-
 
         MEMBER_JOIN:
           embed:
@@ -206,7 +188,6 @@
             thumbnail:
               url: "{member.avatarURL}"
 
-
         MEMBER_JOIN_WITH_PRIOR_RECORDS:
           embed:
             description: |-
@@ -216,7 +197,6 @@
             thumbnail:
               url: "{member.avatarURL}"
 
-
         MEMBER_MUTE_REJOIN:
           embed:
             description: |-
@@ -224,7 +204,6 @@
             color: 0xfdfd96 #pastel yellow
             thumbnail:
               url: "{member.avatarURL}"
-
 
         MEMBER_RESTORE:
           embed:
@@ -235,7 +214,6 @@
             thumbnail:
               url: "{member.avatarURL}"
 
-
         MEMBER_LEAVE:
           embed:
             description: |-
@@ -245,7 +223,6 @@
             thumbnail:
               url: "{member.avatarURL}"
 
-
         MEMBER_ROLE_ADD:
           embed:
             description: |-
@@ -254,7 +231,6 @@
             thumbnail:
               url: "{member.avatarURL}"
 
-
         MEMBER_ROLE_REMOVE:
           embed:
             description: |-
@@ -262,7 +238,6 @@
             color: 0xff6666 #pastel red
             thumbnail:
               url: "{member.avatarURL}"
-
 
         MEMBER_ROLE_CHANGES:
           embed:
@@ -273,7 +248,6 @@
             thumbnail:
               url: "{member.avatarURL}"
 
-
         MEMBER_NICK_CHANGE:
           embed:
             description: |-
@@ -282,7 +256,6 @@
             color: 0xffb347 #pastel orange
             thumbnail:
               url: "{member.avatarURL}"
-
 
         MEMBER_USERNAME_CHANGE:
           embed:
@@ -293,20 +266,17 @@
             thumbnail:
               url: "{user.avatarURL}"
 
-
         CHANNEL_CREATE:
           embed:
             description: |-
               <:channel_created:907773557675794483> **Channel created** <#{channel.id}>
             color: 0x77dd77 #pastel green
 
-
         CHANNEL_DELETE:
           embed:
             description: |-
               <:channel_deleted:907773557646434304> **Channel deleted** {channel.name}
             color: 0xff6666 #pastel red
-
 
         CHANNEL_UPDATE:
           embed:
@@ -315,20 +285,17 @@
               Changes: {differenceString}
             color: 0xffb347 #pastel orange
 
-
         THREAD_CREATE:
           embed:
             description: |-
               <:thread_created:907773963017551933> Thread {channelMention(thread)} was created in channel <#{thread.parentId}>
             color: 0x77dd77 #pastel green
 
-
         THREAD_DELETE:
           embed:
             description: |-
               <:thread_deleted:907773934156533770> Thread {channelMention(thread)} was deleted/archived from channel <#{thread.parentId}>
             color: 0xff6666 #pastel red
-
 
         THREAD_UPDATE:
           embed:
@@ -337,20 +304,17 @@
               Changes: {differenceString}
             color: 0xffb347 #pastel orange
 
-
         STAGE_INSTANCE_CREATE:
           embed:
             description: |-
               <:stage_created:907773828720119858> Stage Instance `{stageInstance.topic}` was created in <a:stage:907962521242173511>Stage Channel <#{stageChannel.id}>
             color: 0x77dd77 #pastel green
 
-
         STAGE_INSTANCE_DELETE:
           embed:
             description: |-
               <:stage_deleted:907773784235327529> Stage Instance `{stageInstance.topic}` was deleted in <a:stage:907962521242173511>Stage Channel <#{stageChannel.id}>
             color: 0xff6666 #pastel red
-
 
         STAGE_INSTANCE_UPDATE:
           embed:
@@ -359,20 +323,17 @@
               Changes: {differenceString}
             color: 0xffb347 #pastel orange
 
-
         EMOJI_CREATE:
           embed:
             description: |-
               {emoji.mention} Emoji **{emoji.name}** (`{emoji.id}`) was created
             color: 0x77dd77 #pastel green
 
-
         EMOJI_DELETE:
           embed:
             description: |-
               Emoji **{emoji.name}** (`{emoji.id}`) was deleted
             color: 0xff6666 #pastel red
-
 
         EMOJI_UPDATE:
           embed:
@@ -382,20 +343,17 @@
               {differenceString}
             color: 0xffb347 #pastel orange
 
-
         STICKER_CREATE:
           embed:
             description: |-
               Sticker `{sticker.name} ({sticker.id})` was created. {if(eq(sticker.description, ""), "", concat("Description: `", sticker.description, "`"))} Format: {sticker.format}
             color: 0x77dd77 #pastel green
 
-
         STICKER_DELETE:
           embed:
             description: |-
               Sticker `{sticker.name} ({sticker.id})` was deleted.
             color: 0xff6666 #pastel red
-
 
         STICKER_UPDATE:
           embed:
@@ -404,14 +362,12 @@
               Changes: {differenceString}
             color: 0xffb347 #pastel orange
 
-
         ROLE_CREATE:
           embed:
             description: |-
               <:role_created:907774081401761852> **Role created**
               <@&{role.id}> **{role.name}**
             color: 0x77dd77 #pastel green
-
 
         ROLE_DELETE: 
           embed:
@@ -420,7 +376,6 @@
               **{role.name}** `{role.id}`
             color: 0xff6666 #pastel red
 
-
         ROLE_UPDATE:
           embed:
             description: |-
@@ -428,7 +383,6 @@
               Role **{newRole.name}** (`{newRole.id}`) was edited.
               Changes:{differenceString}
             color: 0xffb347 #pastel orange
-
 
         MESSAGE_EDIT:
           embed:
@@ -439,7 +393,6 @@
             color: 0xffb347 #pastel orange
             thumbnail:
               url: "{user.avatarURL}"
-
 
         MESSAGE_DELETE:
           embed:
@@ -452,7 +405,6 @@
             thumbnail:
               url: "{user.avatarURL}"
 
-
         MESSAGE_DELETE_BULK:
           embed:
             description: |-
@@ -461,13 +413,11 @@
             thumbnail:
               url: "{user.avatarURL}"
 
-
         MESSAGE_DELETE_BARE:
           embed:
             description: |-
               <:trash_can:907937790132645909> **Message deleted** `{message.id}` in <#{channel.id}> (no more info available)
             color: 0xff6666 #pastel red
-
 
         MESSAGE_DELETE_AUTO:
           embed:
@@ -479,7 +429,6 @@
             thumbnail:
               url: "{user.avatarURL}"
 
-
         CLEAN:
           embed:
             description: |-
@@ -487,7 +436,6 @@
             color: 0xff6666 #pastel red
             thumbnail:
               url: "{mod.avatarURL}"
-
 
         VOICE_CHANNEL_JOIN:
           embed:
@@ -497,7 +445,6 @@
             thumbnail:
               url: "{member.avatarURL}"
 
-
         VOICE_CHANNEL_MOVE:
           embed:
             description: |-
@@ -506,13 +453,11 @@
             thumbnail:
               url: "{member.avatarURL}"
 
-
         VOICE_CHANNEL_FORCE_MOVE:
           embed:
             description: |-
               <:vc_move:907774208795361300> **Voice force move** {if(member, userMention(member), if(user, userMention(user), if(userId, concat("<@!", userId, ">"), "Unknown")))} moved by {userMention(mod)}
               <#{oldChannel.id}> to <#{newChannel.id}>
-
 
         VOICE_CHANNEL_LEAVE:
           embed:
@@ -521,7 +466,6 @@
             color: 0xff6666 #pastel red
             thumbnail:
               url: "{member.avatarURL}"
-
 
         VOICE_CHANNEL_FORCE_DISCONNECT:
           embed:
@@ -532,19 +476,16 @@
             thumbnail:
               url: "{member.avatarURL}"
 
-
         MESSAGE_SPAM_DETECTED:
           embed:
             description: |-
               <:red_circle:907956085707657296> {if(member, userMention(member), if(user, userMention(user), if(userId, concat("<@!", userId, ">"), "Unknown")))} **spam detected** in {channelMention(channel)}: {description} (more than {limit} in {interval}s)
               {archiveUrl}
 
-
         OTHER_SPAM_DETECTED: 
           embed:
             description: |-
               <:red_circle:907956085707657296> {if(member, userMention(member), if(user, userMention(user), if(userId, concat("<@!", userId, ">"), "Unknown")))} **spam detected**: {description} (more than {limit} in {interval}s)
-
 
         SCHEDULED_MESSAGE:
           embed:
@@ -553,14 +494,12 @@
               {channelMention(channel)} on {datetime}
             color: 0xffb347 #pastel orange
 
-
         SCHEDULED_REPEATED_MESSAGE:
           embed:
             description: |-
               ⏰ {userMention(author)} scheduled a message to be posted to
               {channelMention(channel)} on {datetime}, repeated {repeatDetails}
             color: 0xffb347 #pastel orange
-
 
         REPEATED_MESSAGE:
           embed:
@@ -569,13 +508,11 @@
               {channelMention(channel)} {repeatDetails}
             color: 0xffb347 #pastel orange
 
-
         POSTED_SCHEDULED_MESSAGE:
           embed:
             description: |-
               Posted scheduled message (`{messageId}`) to {channelMention(channel)} as scheduled by {userMention(author)}
             color: 0xffb347 #pastel orange
-
 
         AUTOMOD_ACTION:
           embed:
@@ -588,7 +525,6 @@
             thumbnail:
               url: "{user.avatarURL}"
 
-
         SET_ANTIRAID_USER:
           embed:
             description: |-
@@ -598,16 +534,9 @@
             thumbnail:
               url: "{user.avatarURL}"
 
-
         SET_ANTIRAID_AUTO:
           embed:
             description: |-
               <:warn:907937810735067176> **Auto Anti-Raid**
               Antiraid level: **{level}**
             color: 0xffb347 #pastel orange
-
-
-      ping_user: true
-      allow_user_mentions: false
-      #timestamp_format: string
-      include_embed_timestamp: true 
