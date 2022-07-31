@@ -1,3 +1,11 @@
+#
+#           Embed Logs originally made by DEX, improved by metal
+#
+#           The emojis used here are from the Hangar server (https://discord.gg/uTcdUmF6Q7), if you would like your bot to have direct access to them
+#           > just join the server and submit a bot invite request.
+#           They will be usable in webhooks (logs) regardless of your bot being on the server.
+#
+#
       format:
         timestamp: ""
         CASE_CREATE: >-
