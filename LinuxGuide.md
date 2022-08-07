@@ -1,3 +1,7 @@
+# NOTICE ⚠️
+
+This method of self-hosting is now deprecated, use the official docker environment from [here](https://github.com/ZeppelinBot/Zeppelin#development)
+
 # Linux Setup
 ![Zeppelin Banner](assets/zeppelinbanner.jpg)
 
