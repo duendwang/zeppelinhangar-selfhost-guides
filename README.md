@@ -1,3 +1,7 @@
+# NOTICE ⚠️
+
+This method of self-hosting is now deprecated, use the official docker environment from [here](https://github.com/ZeppelinBot/Zeppelin#development)
+
 # About
 This repository contains detailed guides for self-hosting the private Discord bot [Zeppelin](https://zeppelin.gg)
 
