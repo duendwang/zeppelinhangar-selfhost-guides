@@ -111,10 +111,11 @@ In order to run Docker without sudo, we need to make sure the docker group is cr
 1. In your browser, go to https://discord.com/developers/applications/ and log in.
 2. Click on the button **Create new application** and name it.
 3. On the left, click on **Oauth2**
-    - Under **Redirects**, put `http://IP_OR_DOMAIN/api/auth/oauth-callback` into the text box.
+    - Under **Redirects**, put `https://IP_OR_DOMAIN/api/auth/oauth-callback` into the text box.
         - Substitute the VPS IP, or domain if you will use one, into IP_OR_DOMAIN. This is the same IP or domain you will use to access the bot's dashboard.
         - If there is no text box, click **Add Another**
         - Make sure there is no trailing slash (e.g. /oauth-callback not /oauth-callback/)
+		- Note that the URL in the screenshot is outdated. Be sure the use the URL above.
         ![oauth redirects](assets/oauth_redirects.png)
     - On the bottom, click the green **Save** button.
 4. On the left, click on **Bot** and add a bot.
